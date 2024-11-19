@@ -52,9 +52,6 @@ jobs:
       run: jf mvn install -f pom.xml
     - name: publish build info
       run: |
-        jf rt build-collect-env 
-        jf rt build-add-dependencies .
-        jf rt build-add-git
         jf rt build-publish
     - name: build scan
       run: |            
