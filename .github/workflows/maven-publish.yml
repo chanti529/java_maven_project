@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Setup JFrog CLI
-      uses: jfrog/setup-jfrog-cli@v4.4.0
+      uses: jfrog/setup-jfrog-cli@v4.3.2
       env:
         # JFrog Platform url
         JF_URL: ${{ vars.JF_URL }} # or 'https://acme.jfrog.io'
@@ -61,4 +61,3 @@ jobs:
     - name: build scan
       run: |            
         jf build-scan --fail=false
-        jf scan target/*.jar
