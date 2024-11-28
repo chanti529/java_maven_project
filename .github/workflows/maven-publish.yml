@@ -56,6 +56,7 @@ jobs:
     - name: publish build info
       run: |
         mvn clean install -U
+        mvn deploy
     - name: audit
       run: |
         jf audit
