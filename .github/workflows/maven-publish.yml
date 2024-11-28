@@ -55,7 +55,7 @@ jobs:
       run: mvn install -f pom.xml
     - name: publish build info
       run: |
-        clean install -U
+        mvn clean install -U
     - name: audit
       run: |
         jf audit
