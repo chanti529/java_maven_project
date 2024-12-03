@@ -61,3 +61,6 @@ jobs:
     - name: build scan
       run: |            
         jf build-scan --fail=false
+    - name: build promote
+      run: |            
+        jf rt bpr mvn-libs-prod-local --props "maturity=prod;release=true;scan=fals"  
