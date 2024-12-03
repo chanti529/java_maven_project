@@ -1,0 +1,56 @@
+# This workflow will test a DEV package using Security Scanning tools and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Test and Promote to QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      actions: read # for detecting the Github Actions environment.
+      security-events: write # Required for uploading code scanning
+      id-token: write
+    steps:
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v4
+      with: 
+        version: latest
+      env:
+        # JFrog Platform url
+        JF_URL: ${{ vars.JF_URL }} # or 'https://acme.jfrog.io'
+        JF_USER: ${{ secrets.JF_USER }}
+        JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+        # JFrog Platform access token
+        #JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+    - run: |
+        jf rt ping
+        jf --version
+
+    - name: Set up JDK 11 and workspace
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+    - run: mvn --batch-mode --update-snapshots verify
+    - name: Scan and promote the latest dev snapshot
+    - run: jf 
+        
+    
