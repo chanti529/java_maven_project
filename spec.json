@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "aql": {
+        "items.find": {
+          "repo": "mvn-libs-prod-local",
+          "path": {"$match":"org*"},
+          "name": {"$match":"*.jar"},
+          "type": "folder",
+          "$or": [
+            {
+              "$and": [
+                {
+                  "created": { "$before":"7d" }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
