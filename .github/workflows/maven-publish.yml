@@ -60,7 +60,4 @@ jobs:
         jf rt build-publish
     - name: build scan
       run: |            
-        jf build-scan --fail=false
-    - name: build promote
-      run: |            
-        jf rt bpr mvn-libs-prod-local --status RELEASED --props "maturity=prod;release=true;scan=false"  
+        jf build-scan --vulns 
