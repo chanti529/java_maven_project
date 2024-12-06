@@ -50,9 +50,5 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
     - run: mvn --batch-mode --update-snapshots verify
-    - name: Scan before promote
-    - run: jf build-scan --fail=false
-    - name: build promote
-      run: |            
-        jf rt bpr mvn-libs-prod-local --status RELEASED --props "maturity=prod;release=true;scan=true"  
+
     
