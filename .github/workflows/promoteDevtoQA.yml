@@ -52,10 +52,10 @@ jobs:
     - name: Maven JF Setup 
       run: |
         jf mvnc --repo-resolve-releases mvn-libs-release --repo-resolve-snapshots mvn-libs-snapshot --repo-deploy-releases mvn-libs-release --repo-deploy-snapshots mvn-libs-snapshot
-    - run: mvn --batch-mode --update-snapshots verify
+      run: mvn --batch-mode --update-snapshots verify
 
     - name: Scan before promote
-    - run: jf build-scan --fail=false
+      run: jf build-scan --fail=false
     - name: build promote
       run: |            
         jf rt bpr mvn-libs-prod-local --status RELEASED --props "maturity=prod;release=true;scan=true"  
