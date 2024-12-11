@@ -61,3 +61,6 @@ jobs:
     - name: build scan
       run: |            
         jf build-scan --vulns 
+    - name: build promote
+      run: |            
+        jf rt bpr mvn-libs-prod-local --status RELEASED --props "AppID=1234;maturity=prod;release=true;scan=true" 
